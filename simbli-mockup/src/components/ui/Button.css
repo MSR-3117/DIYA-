@@ -1,0 +1,117 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--green-500), var(--accent));
+    color: white;
+    box-shadow: 0 4px 16px rgba(74, 222, 128, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(0, 194, 55, 0.35);
+}
+
+.btn-secondary {
+    background-color: var(--bg-surface-alt);
+    color: var(--text-mid);
+    border: 1px solid var(--border-default);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-surface);
+    color: var(--text-dark);
+    border-color: var(--accent);
+}
+
+.btn-cta {
+    padding: 12px 28px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: transparent;
+    border: 2px solid var(--accent);
+    border-radius: 100px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.4s ease;
+}
+
+.btn-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: -1;
+}
+
+.btn-cta:hover {
+    color: white;
+}
+
+.btn-cta:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-hero {
+    padding: 18px 48px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--green-500), var(--accent));
+    border: none;
+    border-radius: 100px;
+    box-shadow: 0 8px 30px rgba(0, 194, 55, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-hero:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 50px rgba(0, 194, 55, 0.5);
+}
+
+.btn-lg {
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: 1rem;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-text {
+    padding: var(--space-sm) var(--space-md);
+    background: transparent;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.btn-text:hover {
+    color: var(--accent);
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+}

@@ -1,0 +1,326 @@
+/* Sparkles */
+.sparkles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+}
+
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    background: #fafafa;
+}
+
+/* Header */
+.header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid var(--green-100);
+    opacity: 1;
+    /* Ensure visible even if animation fails */
+}
+
+.btn-schedule-all {
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--green-500), var(--accent));
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 25px rgba(0, 194, 55, 0.4);
+    transition: all 0.4s ease;
+}
+
+.btn-schedule-all:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 40px rgba(0, 194, 55, 0.5);
+}
+
+.btn-schedule-all svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Main */
+.main-content {
+    flex: 1;
+    padding: 48px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--green-50);
+    border: 1px solid var(--green-200);
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.page-badge .sparkle-icon {
+    animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+.page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+}
+
+.page-title .word {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.page-title .char {
+    display: inline-block;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-mid);
+}
+
+/* Posts Grid */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.post-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--green-100);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.post-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 194, 55, 0.12);
+    border-color: var(--green-200);
+}
+
+/* Post Image */
+.post-image {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(135deg, var(--green-100), var(--green-200));
+    overflow: hidden;
+}
+
+.post-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.platform-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.platform-badge.linkedin {
+    background: #0077b5;
+}
+
+.platform-badge.instagram {
+    background: linear-gradient(45deg, #f09433, #dc2743);
+}
+
+.platform-badge.twitter {
+    background: #000;
+}
+
+.platform-badge svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Post Content */
+.post-body {
+    padding: 24px;
+}
+
+.post-caption {
+    font-size: 0.9375rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.hashtag {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--green-50);
+    padding: 6px 12px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+}
+
+.hashtag:hover {
+    background: var(--green-100);
+    transform: scale(1.05);
+}
+
+/* Post Actions */
+.post-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--green-100);
+}
+
+.action-btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.action-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-edit {
+    color: var(--text-mid);
+    background: var(--green-50);
+}
+
+.btn-edit:hover {
+    background: var(--green-100);
+    color: var(--accent);
+}
+
+.btn-regenerate {
+    color: var(--accent);
+    background: var(--green-100);
+}
+
+.btn-regenerate:hover {
+    background: var(--green-200);
+}
+
+.btn-regenerate:hover svg {
+    animation: spin 0.5s ease;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1024px) {
+    .posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 20px;
+    }
+
+    .main-content {
+        padding: 24px 20px;
+    }
+}

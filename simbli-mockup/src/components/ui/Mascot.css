@@ -1,0 +1,46 @@
+.mascot {
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+.mascot img {
+    width: 100%;
+    filter: contrast(1.05) brightness(1.02);
+    animation: mascotBob 3s ease-in-out infinite;
+}
+
+.mascot-fixed {
+    position: fixed;
+    right: 3%;
+    bottom: 5%;
+    width: clamp(150px, 20vw, 280px);
+    z-index: 10;
+}
+
+/* Hero mascot styles */
+.hero-mascot {
+    position: relative;
+    z-index: 4;
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+    mix-blend-mode: multiply;
+}
+
+.hero-mascot img {
+    width: clamp(280px, 35vw, 420px);
+    height: auto;
+    filter: contrast(1.05) brightness(1.02);
+    display: block;
+}
+
+@media (max-width: 1024px) {
+    .hero-mascot img {
+        width: clamp(200px, 50vw, 280px);
+    }
+}
+
+@media (max-width: 768px) {
+    .mascot-fixed {
+        display: none;
+    }
+}

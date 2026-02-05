@@ -1,0 +1,40 @@
+.preloader {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.preloader-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    overflow: hidden;
+}
+
+.preloader-text span {
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+.preloader-bar {
+    width: 200px;
+    height: 4px;
+    background: var(--green-100);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.preloader-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-400), var(--accent));
+    border-radius: 2px;
+}

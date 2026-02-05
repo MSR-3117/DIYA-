@@ -1,0 +1,352 @@
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animated Grid Background */
+.animated-grid-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.grid-squares {
+    position: absolute;
+    inset: 0;
+}
+
+.grid-square {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 1px solid var(--green-100);
+    opacity: 0.5;
+    animation: flickerSquare 4s ease-in-out infinite;
+}
+
+.grid-square:nth-child(1) {
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.grid-square:nth-child(2) {
+    top: 20%;
+    right: 10%;
+    animation-delay: 0.8s;
+}
+
+.grid-square:nth-child(3) {
+    bottom: 30%;
+    left: 15%;
+    animation-delay: 1.6s;
+}
+
+.grid-square:nth-child(4) {
+    bottom: 15%;
+    right: 5%;
+    animation-delay: 2.4s;
+}
+
+.grid-square:nth-child(5) {
+    top: 50%;
+    left: 50%;
+    animation-delay: 3.2s;
+}
+
+@keyframes flickerSquare {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* Header */
+.header {
+    padding: 24px 40px;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px;
+    padding-top: 24px;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+/* Step Indicator */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.step-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green-200);
+    transition: all 0.3s ease;
+}
+
+.step-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--green-400), var(--accent));
+}
+
+.step-dot.completed {
+    background: var(--accent);
+}
+
+/* Back Link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-mid);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--text-dark);
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover svg {
+    transform: translateX(-4px);
+}
+
+/* Form Header */
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(134, 239, 172, 0.1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.form-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--accent);
+}
+
+.form-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-subtitle {
+    color: var(--text-mid);
+    font-size: 0.9375rem;
+}
+
+/* Form Fields */
+.form-section {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-dark);
+    background: var(--green-50);
+    border: 2px solid var(--green-100);
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+    color: var(--text-light);
+}
+
+.form-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.12);
+    background: #fff;
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-hint {
+    font-size: 0.8125rem;
+    color: var(--text-light);
+    margin-top: 6px;
+}
+
+/* Two Column Grid */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Logo Upload */
+.logo-upload {
+    border: 2px dashed var(--green-200);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--green-50);
+}
+
+.logo-upload:hover {
+    border-color: var(--accent);
+    background: rgba(74, 222, 128, 0.05);
+}
+
+.logo-upload-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(134, 239, 172, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-upload-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--accent);
+}
+
+.logo-upload-text {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.logo-upload-hint {
+    font-size: 0.8125rem;
+    color: var(--text-light);
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: white;
+    background: linear-gradient(135deg, var(--green-500), var(--accent));
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 8px 24px rgba(0, 194, 55, 0.3);
+    transition: all 0.3s ease;
+    margin-top: 24px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 194, 55, 0.4);
+}
+
+.btn-submit svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-submit:hover svg {
+    transform: translateX(4px);
+}
+
+/* Character Counter */
+.char-counter {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 6px;
+}
+
+.char-counter.warning {
+    color: #F59E0B;
+}
+
+.char-counter.error {
+    color: #EF4444;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .content-wrapper {
+        padding: 20px;
+    }
+
+    .form-card {
+        padding: 24px;
+    }
+}

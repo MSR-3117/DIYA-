@@ -1,0 +1,371 @@
+/* Floating icons background */
+.bg-icons {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bg-icon {
+    position: absolute;
+    opacity: 0;
+    font-size: 2rem;
+}
+
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.header {
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Progress */
+.progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green-200);
+    transition: all 0.4s ease;
+}
+
+.progress-dot.done {
+    background: var(--accent);
+}
+
+.progress-dot.active {
+    width: 40px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, var(--green-400), var(--accent));
+}
+
+/* Main */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Page header */
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.page-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--green-100), var(--green-200));
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    position: relative;
+}
+
+.page-icon::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 2px dashed var(--green-300);
+    border-radius: 30px;
+    animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.page-icon svg {
+    width: 36px;
+    height: 36px;
+    stroke: var(--accent);
+}
+
+.page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+}
+
+.page-title .word {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.page-title .char {
+    display: inline-block;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-mid);
+}
+
+/* Platforms Grid */
+.platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 48px;
+}
+
+.platform-card {
+    background: white;
+    border: 2px solid var(--green-100);
+    border-radius: 20px;
+    padding: 28px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.platform-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--green-50), var(--green-100));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.platform-card:hover {
+    border-color: var(--green-300);
+    transform: translateY(-4px) scale(1.02);
+}
+
+.platform-card:hover::before {
+    opacity: 1;
+}
+
+.platform-card.selected {
+    border-color: var(--accent);
+    background: var(--green-50);
+}
+
+.platform-card.selected::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--green-400), var(--accent));
+}
+
+.platform-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.platform-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+}
+
+.platform-card:hover .platform-logo {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.platform-logo svg {
+    width: 28px;
+    height: 28px;
+}
+
+.platform-info {
+    flex: 1;
+}
+
+.platform-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.platform-desc {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+}
+
+.platform-check {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--green-300);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.platform-card.selected .platform-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.1);
+}
+
+.platform-check svg {
+    width: 14px;
+    height: 14px;
+    stroke: white;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.platform-card.selected .platform-check svg {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Frequency Section */
+.frequency-section {
+    width: 100%;
+    padding: 32px;
+    background: var(--green-50);
+    border-radius: 24px;
+    margin-bottom: 40px;
+}
+
+.frequency-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.frequency-options {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.frequency-pill {
+    padding: 14px 28px;
+    background: white;
+    border: 2px solid var(--green-200);
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.frequency-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--green-400), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.frequency-pill:hover {
+    border-color: var(--green-400);
+    transform: scale(1.05);
+}
+
+.frequency-pill.selected {
+    border-color: var(--accent);
+    color: white;
+}
+
+.frequency-pill.selected::before {
+    opacity: 1;
+}
+
+.frequency-pill span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Continue Button */
+.btn-continue {
+    padding: 18px 48px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--green-500), var(--accent));
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 30px rgba(0, 194, 55, 0.4);
+    transition: all 0.4s ease;
+}
+
+.btn-continue:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 50px rgba(0, 194, 55, 0.5);
+}
+
+.btn-continue svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s;
+}
+
+.btn-continue:hover svg {
+    transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+    .platforms-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 20px;
+    }
+
+    .main-content {
+        padding: 40px 20px;
+    }
+}

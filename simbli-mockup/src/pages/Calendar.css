@@ -1,0 +1,324 @@
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+}
+
+/* Header */
+.header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid var(--green-100);
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-integrations {
+    padding: 12px 24px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    background: white;
+    border: 2px solid var(--green-200);
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-integrations:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-integrations svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-publish {
+    padding: 12px 28px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--green-500), var(--accent));
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0, 194, 55, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-publish:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 194, 55, 0.5);
+}
+
+.btn-publish svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Calendar Header */
+.calendar-header {
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid var(--green-100);
+}
+
+.calendar-title h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.calendar-title p {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--green-200);
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    border-color: var(--accent);
+    background: var(--green-50);
+}
+
+.nav-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-mid);
+}
+
+.nav-label {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: var(--green-100);
+    padding: 1px;
+}
+
+.day-column {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.day-column.today {
+    background: var(--green-50);
+}
+
+.day-column.today .day-header {
+    background: linear-gradient(135deg, var(--green-400), var(--accent));
+}
+
+.day-column.today .day-name,
+.day-column.today .day-date {
+    color: white;
+}
+
+.day-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--green-100);
+    background: var(--green-50);
+}
+
+.day-name {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 4px;
+}
+
+.day-date {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.day-content {
+    flex: 1;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Post Items */
+.post-item {
+    background: white;
+    border: 1px solid var(--green-100);
+    border-radius: 14px;
+    padding: 14px;
+    border-left: 4px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.post-item.linkedin {
+    border-left-color: #0077b5;
+}
+
+.post-item.instagram {
+    border-left-color: #e4405f;
+}
+
+.post-item.twitter {
+    border-left-color: #000;
+}
+
+.day-column.today .post-item {
+    background: white;
+}
+
+.post-item:hover {
+    border-color: var(--green-300);
+    box-shadow: 0 8px 25px rgba(0, 194, 55, 0.15);
+    transform: translateY(-4px) scale(1.02);
+}
+
+.post-time {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.post-preview {
+    font-size: 0.8125rem;
+    color: var(--text-dark);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-platform {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.platform-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+/* Add Post Button */
+.btn-add-post {
+    margin-top: auto;
+    padding: 12px;
+    border: 2px dashed var(--green-200);
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.btn-add-post:hover {
+    border-color: var(--accent);
+    background: var(--green-50);
+    opacity: 1;
+}
+
+.btn-add-post svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--green-400);
+}
+
+@media (max-width: 1024px) {
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .day-column:nth-child(n+5) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .day-column {
+        min-height: auto;
+    }
+
+    .day-column:not(.today) {
+        display: none;
+    }
+}

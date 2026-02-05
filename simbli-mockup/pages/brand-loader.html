@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyzing Brand – DIYA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-50: #f0fdf4;
+            --green-100: #dcfce7;
+            --green-200: #bbf7d0;
+            --green-300: #86efac;
+            --green-400: #4ade80;
+            --green-500: #22c55e;
+            --green-600: #16a34a;
+            --accent: #00c237;
+            --text-dark: #0f172a;
+            --text-mid: #475569;
+            --text-light: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Particle field */
+        .particle-field {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .field-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--green-400);
+        }
+
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Central Orb */
+        .orb-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin-bottom: 60px;
+        }
+
+        /* Outer rings */
+        .orbit-ring {
+            position: absolute;
+            border: 1px solid var(--green-200);
+            border-radius: 50%;
+            animation: spin linear infinite;
+        }
+
+        .ring-1 {
+            inset: -20px;
+            animation-duration: 30s;
+        }
+
+        .ring-2 {
+            inset: -50px;
+            animation-duration: 45s;
+            animation-direction: reverse;
+            border-style: dashed;
+        }
+
+        .ring-3 {
+            inset: -80px;
+            animation-duration: 60s;
+            border-color: var(--green-100);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Orbiting dots */
+        .orbit-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, var(--green-400), var(--accent));
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 194, 55, 0.5);
+        }
+
+        .dot-1 {
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: orbitPulse 2s infinite;
+        }
+
+        .dot-2 {
+            bottom: -56px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: orbitPulse 2s infinite 0.5s;
+        }
+
+        .dot-3 {
+            right: -86px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: orbitPulse 2s infinite 1s;
+        }
+
+        @keyframes orbitPulse {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.3);
+            }
+        }
+
+        /* Central orb */
+        .orb {
+            position: absolute;
+            inset: 40px;
+            background: linear-gradient(135deg, var(--green-100), var(--green-200));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                inset 0 -20px 40px rgba(0, 194, 55, 0.1),
+                0 20px 60px rgba(0, 194, 55, 0.2);
+        }
+
+        .orb-glow {
+            position: absolute;
+            inset: -30px;
+            background: radial-gradient(circle, rgba(0, 194, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: orbGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes orbGlow {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .orb-core {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--green-400), var(--accent));
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(0, 194, 55, 0.6);
+            animation: corePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes corePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* Mascot in Orb */
+        .orb-mascot {
+            width: 140px;
+            height: auto;
+            animation: mascotFloat 3s ease-in-out infinite;
+            mix-blend-mode: multiply;
+            /* Enhance contrast for holographic look */
+            filter: contrast(1.1) brightness(1.05);
+        }
+
+        @keyframes mascotFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        /* Brand logo placeholder */
+        .brand-logo {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        /* Status Text */
+        .status-container {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .status-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .status-title .word {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .status-title .char {
+            display: inline-block;
+        }
+
+        .status-detail {
+            font-size: 1rem;
+            color: var(--text-mid);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 48px;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: var(--green-100);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--green-400), var(--accent));
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        .progress-percent {
+            color: var(--accent);
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            gap: 16px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            background: white;
+            border: 2px solid var(--green-100);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-mid);
+            transition: all 0.4s ease;
+        }
+
+        .step.active {
+            border-color: var(--green-400);
+            color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0, 194, 55, 0.15);
+        }
+
+        .step.done {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .step-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .step-loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--green-200);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: stepSpin 0.8s linear infinite;
+        }
+
+        .step.active .step-loader {
+            border-color: var(--green-300);
+            border-top-color: var(--accent);
+        }
+
+        .step.done .step-loader {
+            display: none;
+        }
+
+        @keyframes stepSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .step-check {
+            display: none;
+        }
+
+        .step.done .step-check {
+            display: block;
+        }
+
+        .step.done .step-loader {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .orb-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .steps-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particle-field" id="particleField"></div>
+
+    <div class="page-container">
+        <div class="orb-container">
+            <div class="orbit-ring ring-1">
+                <div class="orbit-dot dot-1"></div>
+            </div>
+            <div class="orbit-ring ring-2">
+                <div class="orbit-dot dot-2"></div>
+            </div>
+            <div class="orbit-ring ring-3">
+                <div class="orbit-dot dot-3"></div>
+            </div>
+            <div class="orb-glow"></div>
+            <div class="orb">
+                <img src="../assets/mascot.png" alt="DIYA" class="orb-mascot">
+            </div>
+            <div class="brand-logo" id="brandLogo">A</div>
+        </div>
+
+        <div class="status-container">
+            <h1 class="status-title" id="statusTitle">Analyzing your brand</h1>
+            <p class="status-detail" id="statusDetail">Extracting colors and typography...</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar-bg">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressLabel">Scanning website...</span>
+                <span class="progress-percent" id="progressPercent">0%</span>
+            </div>
+        </div>
+
+        <div class="steps-container">
+            <div class="step active" id="step1">
+                <div class="step-icon">
+                    <div class="step-loader"></div>
+                    <svg class="step-check" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="3" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
+                Colors
+            </div>
+            <div class="step" id="step2">
+                <div class="step-icon">
+                    <div class="step-loader"></div>
+                    <svg class="step-check" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="3" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
+                Typography
+            </div>
+            <div class="step" id="step3">
+                <div class="step-icon">
+                    <div class="step-loader"></div>
+                    <svg class="step-check" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="3" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                </div>
+                Voice
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create particle field
+            const field = document.getElementById('particleField');
+            for (let i = 0; i < 60; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'field-particle';
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                field.appendChild(particle);
+
+                gsap.to(particle, {
+                    y: 'random(-200, 200)',
+                    x: 'random(-100, 100)',
+                    duration: Math.random() * 15 + 10,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut'
+                });
+            }
+
+            // Initial animations
+            const tl = gsap.timeline();
+
+            tl.from('.orb-container', { scale: 0, duration: 1, ease: 'elastic.out(1, 0.5)' })
+                .from('.orbit-ring', { scale: 0, opacity: 0, stagger: 0.15, duration: 0.6 }, '-=0.5')
+                .from('.orbit-dot', { scale: 0, stagger: 0.1, duration: 0.4, ease: 'back.out(2)' }, '-=0.3')
+                .from('.status-title', { y: 40, opacity: 0, duration: 0.6 }, '-=0.3')
+                .from('.status-detail', { y: 20, opacity: 0, duration: 0.5 }, '-=0.3')
+                .from('.progress-container', { y: 30, opacity: 0, duration: 0.5 }, '-=0.3')
+                .from('.step', { y: 20, opacity: 0, stagger: 0.1, duration: 0.4 }, '-=0.2');
+
+            // Progress simulation
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressLabel = document.getElementById('progressLabel');
+            const statusDetail = document.getElementById('statusDetail');
+            const brandLogo = document.getElementById('brandLogo');
+
+            const steps = [
+                { el: document.getElementById('step1'), label: 'Extracting colors...', detail: 'Found 5 brand colors' },
+                { el: document.getElementById('step2'), label: 'Analyzing typography...', detail: 'Detected Inter font family' },
+                { el: document.getElementById('step3'), label: 'Learning brand voice...', detail: 'Professional & innovative tone' }
+            ];
+
+            let progress = 0;
+            let currentStep = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 2 + 0.5;
+                if (progress > 100) progress = 100;
+
+                gsap.to(progressBar, { width: progress + '%', duration: 0.3 });
+                progressPercent.textContent = Math.floor(progress) + '%';
+
+                // Update steps
+                if (progress > 25 && currentStep === 0) {
+                    steps[0].el.classList.remove('active');
+                    steps[0].el.classList.add('done');
+                    steps[1].el.classList.add('active');
+                    progressLabel.textContent = steps[1].label;
+                    statusDetail.textContent = steps[0].detail;
+                    currentStep = 1;
+
+                    gsap.from(steps[0].el.querySelector('.step-check'), { scale: 0, duration: 0.3, ease: 'back.out(2)' });
+                }
+
+                if (progress > 55 && currentStep === 1) {
+                    steps[1].el.classList.remove('active');
+                    steps[1].el.classList.add('done');
+                    steps[2].el.classList.add('active');
+                    progressLabel.textContent = steps[2].label;
+                    statusDetail.textContent = steps[1].detail;
+                    currentStep = 2;
+
+                    gsap.from(steps[1].el.querySelector('.step-check'), { scale: 0, duration: 0.3, ease: 'back.out(2)' });
+                }
+
+                if (progress > 85 && currentStep === 2) {
+                    steps[2].el.classList.remove('active');
+                    steps[2].el.classList.add('done');
+                    progressLabel.textContent = 'Building brand profile...';
+                    statusDetail.textContent = steps[2].detail;
+                    currentStep = 3;
+
+                    gsap.from(steps[2].el.querySelector('.step-check'), { scale: 0, duration: 0.3, ease: 'back.out(2)' });
+
+                    // Show brand logo
+                    gsap.to(brandLogo, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)' });
+                    gsap.to('.orb-mascot', { scale: 0.5, opacity: 0, duration: 0.4 });
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressLabel.textContent = 'Complete!';
+
+                    setTimeout(() => {
+                        gsap.to('.page-container', {
+                            opacity: 0,
+                            scale: 0.95,
+                            duration: 0.4,
+                            onComplete: () => {
+                                window.location.href = 'brand-profile.html';
+                            }
+                        });
+                    }, 800);
+                }
+            }, 60);
+        });
+    </script>
+</body>
+
+</html>

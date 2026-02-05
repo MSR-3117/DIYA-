@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Website – DIYA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-50: #f0fdf4;
+            --green-100: #dcfce7;
+            --green-200: #bbf7d0;
+            --green-300: #86efac;
+            --green-400: #4ade80;
+            --green-500: #22c55e;
+            --green-600: #16a34a;
+            --accent: #00c237;
+            --text-dark: #0f172a;
+            --text-mid: #475569;
+            --text-light: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* Background blobs */
+        .bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--green-300);
+            top: -150px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--green-200);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--green-400), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 194, 55, 0.4);
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Progress */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-step {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--green-200);
+            transition: all 0.4s ease;
+        }
+
+        .progress-step.active {
+            width: 40px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--green-400), var(--accent));
+            box-shadow: 0 2px 10px rgba(0, 194, 55, 0.4);
+        }
+
+        /* Main */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .entry-card {
+            width: 100%;
+            max-width: 580px;
+            text-align: center;
+        }
+
+        /* Animated Icon */
+        .icon-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .icon-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--green-100), var(--green-200));
+            border-radius: 28px;
+            transform: rotate(0deg);
+        }
+
+        .icon-ring {
+            position: absolute;
+            inset: -12px;
+            border: 2px dashed var(--green-300);
+            border-radius: 36px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .icon-inner {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-inner svg {
+            width: 44px;
+            height: 44px;
+            stroke: var(--accent);
+        }
+
+        /* Title with character animation */
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            overflow: hidden;
+        }
+
+        .page-title .word {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .page-title .char {
+            display: inline-block;
+            transform: translateY(100%);
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-mid);
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* URL Input Magic */
+        .url-input-wrapper {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .url-input-bg {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(135deg, var(--green-400), var(--accent), var(--green-300));
+            border-radius: 24px;
+            opacity: 0;
+            filter: blur(8px);
+            transition: opacity 0.4s ease;
+        }
+
+        .url-input-wrapper:focus-within .url-input-bg {
+            opacity: 0.5;
+        }
+
+        .url-input-inner {
+            position: relative;
+            background: white;
+            border: 2px solid var(--green-200);
+            border-radius: 20px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.4s ease;
+        }
+
+        .url-input-wrapper:focus-within .url-input-inner {
+            border-color: var(--green-400);
+            box-shadow: 0 10px 40px rgba(0, 194, 55, 0.15);
+        }
+
+        .url-prefix {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .url-prefix svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--green-400);
+        }
+
+        .url-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            background: transparent;
+        }
+
+        .url-input::placeholder {
+            color: var(--text-light);
+        }
+
+        /* Analyze Button */
+        .btn-analyze {
+            width: 100%;
+            padding: 20px 32px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--green-500), var(--accent));
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(0, 194, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .btn-analyze::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-analyze:hover::before {
+            left: 100%;
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(0, 194, 55, 0.5);
+        }
+
+        .btn-analyze svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-analyze:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin: 40px 0;
+            opacity: 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--green-100);
+        }
+
+        .divider-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Manual Button */
+        .btn-manual {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-mid);
+            background: transparent;
+            border: 2px solid var(--green-200);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn-manual:hover {
+            border-color: var(--green-400);
+            color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0, 194, 55, 0.15);
+        }
+
+        .btn-manual svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Floating Tips */
+        .tip-cards {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .tip-card {
+            position: absolute;
+            background: white;
+            border: 1px solid var(--green-100);
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 0.8125rem;
+            color: var(--text-mid);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+        }
+
+        .tip-card-1 {
+            top: 25%;
+            left: 5%;
+            transform: rotate(-5deg);
+        }
+
+        .tip-card-2 {
+            top: 30%;
+            right: 5%;
+            transform: rotate(5deg);
+        }
+
+        .tip-card-3 {
+            bottom: 25%;
+            left: 8%;
+            transform: rotate(3deg);
+        }
+
+        /* Mascot */
+        .page-mascot {
+            position: fixed;
+            right: 3%;
+            bottom: 5%;
+            width: clamp(150px, 20vw, 280px);
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(40px);
+            mix-blend-mode: multiply;
+        }
+
+        .page-mascot img {
+            width: 100%;
+            /* Removed drop-shadow as it interferes with blend mode on white bg images */
+            filter: contrast(1.05) brightness(1.02);
+            animation: mascotBob 3s ease-in-out infinite;
+        }
+
+        @keyframes mascotBob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .tip-cards {
+                display: none;
+            }
+
+            .page-mascot {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="page-container">
+        <header class="header">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" />
+                    </svg></div>
+                <span class="logo-text">DIYA</span>
+            </a>
+            <div class="progress-container">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="tip-cards">
+                <div class="tip-card tip-card-1">✨ We'll extract your brand colors</div>
+                <div class="tip-card tip-card-2">🎯 AI learns your brand voice</div>
+                <div class="tip-card tip-card-3">🚀 30-second setup</div>
+            </div>
+
+            <div class="entry-card">
+                <div class="icon-container">
+                    <div class="icon-ring"></div>
+                    <div class="icon-bg"></div>
+                    <div class="icon-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.918 17.918 0 01-8.716-2.247m0 0A8.966 8.966 0 013 12c0-1.97.633-3.794 1.706-5.268" />
+                        </svg>
+                    </div>
+                </div>
+
+                <h1 class="page-title" id="pageTitle">What's your website?</h1>
+                <p class="page-subtitle">We'll analyze your brand and create content that feels authentically you</p>
+
+                <div class="url-input-wrapper">
+                    <div class="url-input-bg"></div>
+                    <div class="url-input-inner">
+                        <div class="url-prefix">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                            </svg>
+                            https://
+                        </div>
+                        <input type="text" class="url-input" id="urlInput" placeholder="yourwebsite.com"
+                            autocomplete="off">
+                    </div>
+                </div>
+
+                <button class="btn-analyze" id="analyzeBtn" onclick="window.location.href='brand-loader.html'">
+                    Analyze My Brand
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </button>
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text">or</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <button class="btn-manual" onclick="window.location.href='brand-form.html'">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487z" />
+                    </svg>
+                    Enter details manually
+                </button>
+            </div>
+        </main>
+        <!-- Mascot -->
+        <div class="page-mascot">
+            <img src="../assets/mascot.png" alt="DIYA AI Assistant">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 8 + 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.background = `hsl(${140 + Math.random() * 20}, 70%, ${60 + Math.random() * 20}%)`;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particlesContainer.appendChild(particle);
+
+                gsap.to(particle, {
+                    opacity: 0.6,
+                    duration: Math.random() * 2 + 1,
+                    delay: Math.random() * 2
+                });
+
+                gsap.to(particle, {
+                    y: 'random(-100, 100)',
+                    x: 'random(-50, 50)',
+                    duration: Math.random() * 10 + 10,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut'
+                });
+            }
+
+            // Animate title characters
+            const title = document.getElementById('pageTitle');
+            const text = title.textContent;
+            title.innerHTML = '';
+
+            text.split(' ').forEach((word, wordIndex) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'word';
+                word.split('').forEach(char => {
+                    const charSpan = document.createElement('span');
+                    charSpan.className = 'char';
+                    charSpan.textContent = char;
+                    wordSpan.appendChild(charSpan);
+                });
+                title.appendChild(wordSpan);
+                if (wordIndex < text.split(' ').length - 1) {
+                    const space = document.createElement('span');
+                    space.innerHTML = '&nbsp;';
+                    title.appendChild(space);
+                }
+            });
+
+            // Animation timeline
+            const tl = gsap.timeline();
+
+            tl.from('.header', { y: -50, opacity: 0, duration: 0.7, ease: 'power3.out' })
+                .from('.icon-container', { scale: 0, rotation: -180, duration: 0.8, ease: 'back.out(1.7)' }, '-=0.3')
+                .from('.icon-ring', { scale: 0, opacity: 0, duration: 0.6 }, '-=0.4')
+                .to('.page-title .char', {
+                    y: 0,
+                    stagger: 0.03,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.4')
+                .to('.page-subtitle', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.3')
+                .from('.url-input-wrapper', {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.3')
+                .to('.btn-analyze', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                }, '-=0.3')
+                .to('.divider', { opacity: 1, duration: 0.4 }, '-=0.2')
+                .to('.btn-manual', { opacity: 1, duration: 0.4 }, '-=0.2')
+                .to('.tip-card', {
+                    opacity: 1,
+                    stagger: 0.15,
+                    duration: 0.5,
+                    ease: 'power3.out'
+                }, '-=0.3')
+                .to('.page-mascot', {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'back.out(1.7)'
+                }, '-=0.5');
+
+            // Floating tip cards animation
+            gsap.to('.tip-card-1', {
+                y: 15,
+                rotation: -8,
+                duration: 4,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+
+            gsap.to('.tip-card-2', {
+                y: -15,
+                rotation: 8,
+                duration: 5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+
+            gsap.to('.tip-card-3', {
+                y: 10,
+                rotation: 0,
+                duration: 3.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+
+            // Icon hover effect
+            const iconContainer = document.querySelector('.icon-container');
+            iconContainer.addEventListener('mouseenter', () => {
+                gsap.to('.icon-bg', { rotation: 15, scale: 1.05, duration: 0.3 });
+                gsap.to('.icon-inner svg', { scale: 1.1, rotation: 10, duration: 0.3 });
+            });
+            iconContainer.addEventListener('mouseleave', () => {
+                gsap.to('.icon-bg', { rotation: 0, scale: 1, duration: 0.3 });
+                gsap.to('.icon-inner svg', { scale: 1, rotation: 0, duration: 0.3 });
+            });
+
+            // Input focus effects
+            const urlInput = document.getElementById('urlInput');
+            urlInput.addEventListener('focus', () => {
+                gsap.to('.url-prefix svg', { scale: 1.2, rotation: 15, duration: 0.3 });
+            });
+            urlInput.addEventListener('blur', () => {
+                gsap.to('.url-prefix svg', { scale: 1, rotation: 0, duration: 0.3 });
+            });
+        });
+    </script>
+</body>
+
+</html>

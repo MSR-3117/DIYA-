@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your content calendar for the week.">
+    <title>Content Calendar – DIYA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/content-calendar.css">
+</head>
+
+<body>
+    <div class="gradient-orb gradient-orb-1"></div>
+    <div class="gradient-orb gradient-orb-2"></div>
+
+    <div class="page-wrapper">
+        <header class="header">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text">DIYA</span>
+            </a>
+            <nav class="header-nav">
+                <a href="#" class="header-link">Help</a>
+                <div class="user-avatar">M</div>
+            </nav>
+        </header>
+
+        <main class="main-content calendar-view">
+            <div class="container-xl">
+                <div class="calendar-controls">
+                    <div class="calendar-nav">
+                        <h2 class="current-month">October 2024</h2>
+                        <div class="nav-buttons">
+                            <button class="nav-btn">Today</button>
+                            <button class="nav-btn icon">&lt;</button>
+                            <button class="nav-btn icon">&gt;</button>
+                        </div>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="toggle-btn">Week</button>
+                        <button class="toggle-btn active">Month</button>
+                    </div>
+                </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-grid">
+                        <!-- Header Row -->
+                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header">Mon</div>
+                        <div class="calendar-day-header">Tue</div>
+                        <div class="calendar-day-header">Wed</div>
+                        <div class="calendar-day-header">Thu</div>
+                        <div class="calendar-day-header">Fri</div>
+                        <div class="calendar-day-header">Sat</div>
+
+                        <!-- Content Row (Week 1 of Oct 2024 style) -->
+
+                        <!-- Sun 29 (Prev) -->
+                        <div class="calendar-cell muted">
+                            <span class="date-number">29</span>
+                        </div>
+
+                        <!-- Mon 30 (Prev) -->
+                        <div class="calendar-cell muted">
+                            <span class="date-number">30</span>
+                        </div>
+
+                        <!-- Tue 1 -->
+                        <div class="calendar-cell">
+                            <span class="date-number">1</span>
+                            <div class="calendar-chip">
+                                <div class="chip-content">
+                                    <span class="chip-icon video">▶</span>
+                                    <span class="chip-title">Reel: Monday Motivation</span>
+                                </div>
+                                <span class="chip-status draft">Draft</span>
+                            </div>
+                        </div>
+
+                        <!-- Wed 2 -->
+                        <div class="calendar-cell">
+                            <span class="date-number">2</span>
+                            <div class="calendar-chip">
+                                <div class="chip-content">
+                                    <span class="chip-icon image">IMG</span>
+                                    <span class="chip-title">Post: Product Update</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thu 3 -->
+                        <div class="calendar-cell">
+                            <span class="date-number">3</span>
+                        </div>
+
+                        <!-- Fri 4 -->
+                        <div class="calendar-cell">
+                            <span class="date-number">4</span>
+                            <div class="calendar-chip">
+                                <div class="chip-content">
+                                    <span class="chip-icon carousel">❖</span>
+                                    <span class="chip-title">Carousel: Top Tips</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sat 5 -->
+                        <div class="calendar-cell">
+                            <span class="date-number">5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

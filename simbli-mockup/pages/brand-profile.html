@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Brand Profile – DIYA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-50: #f0fdf4;
+            --green-100: #dcfce7;
+            --green-200: #bbf7d0;
+            --green-300: #86efac;
+            --green-400: #4ade80;
+            --green-500: #22c55e;
+            --accent: #00c237;
+            --text-dark: #0f172a;
+            --text-mid: #475569;
+            --text-light: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(74, 222, 128, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 194, 55, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .float-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .page-container {
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--green-100);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--green-400), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 194, 55, 0.4);
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .btn-continue {
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, var(--green-500), var(--accent));
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 25px rgba(0, 194, 55, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .btn-continue:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 40px rgba(0, 194, 55, 0.5);
+        }
+
+        .btn-continue svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s;
+        }
+
+        .btn-continue:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .profile-hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .brand-logo-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 32px;
+        }
+
+        .brand-logo-ring {
+            position: absolute;
+            inset: -10px;
+            border: 2px dashed var(--green-300);
+            border-radius: 40px;
+            animation: rotateSlow 30s linear infinite;
+        }
+
+        @keyframes rotateSlow {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .brand-logo-glow {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(0, 194, 55, 0.2) 0%, transparent 70%);
+            border-radius: 50px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .brand-logo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--green-100), var(--green-200));
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 194, 55, 0.2);
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 194, 55, 0.5);
+            border: 3px solid white;
+        }
+
+        .verified-badge svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+        }
+
+        .brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.03em;
+        }
+
+        .brand-name .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(40px) rotateX(-90deg);
+        }
+
+        .brand-tagline {
+            font-size: 1.25rem;
+            color: var(--text-mid);
+            margin-bottom: 24px;
+        }
+
+        .brand-tags {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            background: white;
+            border: 1px solid var(--green-200);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-mid);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .brand-tag .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-card {
+            background: white;
+            border: 1px solid var(--green-100);
+            border-radius: 28px;
+            padding: 36px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.4s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(0, 194, 55, 0.12);
+            border-color: var(--green-200);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--green-100), var(--green-200));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .profile-card:hover .card-icon {
+            transform: rotate(10deg) scale(1.1);
+            background: linear-gradient(135deg, var(--green-200), var(--green-300));
+        }
+
+        .card-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--accent);
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Colors Section */
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .color-swatch {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .color-swatch::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+        }
+
+        .color-swatch::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 3px solid transparent;
+            border-radius: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .color-swatch:hover::after {
+            border-color: var(--text-dark);
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.15) rotate(5deg);
+            z-index: 2;
+        }
+
+        /* Typography Section */
+        .typography-samples {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .type-sample {
+            padding: 20px 24px;
+            background: var(--green-50);
+            border-radius: 16px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.3s ease;
+        }
+
+        .type-sample:hover {
+            background: var(--green-100);
+            transform: translateX(8px);
+        }
+
+        .type-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .type-primary {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .type-secondary {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-mid);
+        }
+
+        /* Voice Section */
+        .voice-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .voice-trait {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--green-50), var(--green-100));
+            border: 1px solid var(--green-200);
+            border-radius: 100px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .voice-trait::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--green-300), var(--green-400));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .voice-trait:hover::before {
+            opacity: 1;
+        }
+
+        .voice-trait:hover {
+            color: white;
+            border-color: transparent;
+        }
+
+        .voice-trait span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tone Section */
+        .tone-meter {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tone-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tone-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-mid);
+        }
+
+        .tone-bar-bg {
+            height: 10px;
+            background: var(--green-100);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .tone-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green-400), var(--accent));
+            border-radius: 5px;
+            width: 0%;
+            position: relative;
+        }
+
+        .tone-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px 20px;
+            }
+
+            .main-content {
+                padding: 40px 20px;
+            }
+
+            .colors-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-pattern"></div>
+    <div class="floating-shapes" id="floatingShapes"></div>
+
+    <div class="page-container">
+        <header class="header">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon"><svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" />
+                    </svg></div>
+                <span class="logo-text">DIYA</span>
+            </a>
+            <button class="btn-continue" onclick="window.location.href='platform-select.html'">
+                Continue
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </button>
+        </header>
+
+        <main class="main-content">
+            <!-- Hero -->
+            <section class="profile-hero">
+                <div class="brand-logo-container">
+                    <div class="brand-logo-glow"></div>
+                    <div class="brand-logo-ring"></div>
+                    <div class="brand-logo">A</div>
+                    <div class="verified-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </div>
+                </div>
+                <h1 class="brand-name" id="brandName">Acme Corporation</h1>
+                <p class="brand-tagline">Building tomorrow's solutions, today.</p>
+                <div class="brand-tags">
+                    <span class="brand-tag"><span class="dot"
+                            style="background: var(--accent);"></span>Enterprise</span>
+                    <span class="brand-tag"><span class="dot" style="background: #3b82f6;"></span>Technology</span>
+                    <span class="brand-tag"><span class="dot" style="background: #f59e0b;"></span>Innovation</span>
+                </div>
+            </section>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid">
+                <!-- Colors Card -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+                            </svg></div>
+                        <h2 class="card-title">Brand Colors</h2>
+                    </div>
+                    <div class="colors-grid">
+                        <div class="color-swatch" style="background: #00c237;"></div>
+                        <div class="color-swatch" style="background: #1e3a5f;"></div>
+                        <div class="color-swatch" style="background: #f8fafc;"></div>
+                        <div class="color-swatch" style="background: #0f172a;"></div>
+                        <div class="color-swatch" style="background: #94a3b8;"></div>
+                    </div>
+                </div>
+
+                <!-- Typography Card -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                            </svg></div>
+                        <h2 class="card-title">Typography</h2>
+                    </div>
+                    <div class="typography-samples">
+                        <div class="type-sample">
+                            <div class="type-label">Heading</div>
+                            <div class="type-primary">Space Grotesk Bold</div>
+                        </div>
+                        <div class="type-sample">
+                            <div class="type-label">Body</div>
+                            <div class="type-secondary">Inter Regular - Clean and readable for all content</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voice Card -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                            </svg></div>
+                        <h2 class="card-title">Brand Voice</h2>
+                    </div>
+                    <div class="voice-traits">
+                        <div class="voice-trait"><span>✨ Professional</span></div>
+                        <div class="voice-trait"><span>🚀 Innovative</span></div>
+                        <div class="voice-trait"><span>🤝 Trustworthy</span></div>
+                        <div class="voice-trait"><span>💡 Forward-thinking</span></div>
+                    </div>
+                </div>
+
+                <!-- Tone Card -->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                            </svg></div>
+                        <h2 class="card-title">Tone Analysis</h2>
+                    </div>
+                    <div class="tone-meter">
+                        <div class="tone-item">
+                            <div class="tone-label"><span>Formal</span><span>Casual</span></div>
+                            <div class="tone-bar-bg">
+                                <div class="tone-bar" data-width="75"></div>
+                            </div>
+                        </div>
+                        <div class="tone-item">
+                            <div class="tone-label"><span>Serious</span><span>Playful</span></div>
+                            <div class="tone-bar-bg">
+                                <div class="tone-bar" data-width="40"></div>
+                            </div>
+                        </div>
+                        <div class="tone-item">
+                            <div class="tone-label"><span>Reserved</span><span>Enthusiastic</span></div>
+                            <div class="tone-bar-bg">
+                                <div class="tone-bar" data-width="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Create floating shapes
+      const shapesContainer = document.getElementById('floatingShapes');
+      for (let i = 0; i < 20; i++) {
+        const shape = document.createElement('div');
+        shape.className = 'float-shape';
+        const size = Math.random() * 80 + 40;
+        shape.style.width = size + 'px';
+        shape.style.height = size + 'px';
+        shape.style.background = `hsla(${140 + Math.random() * 30}, 70%, ${70 + Math.random() * 20}%, 0.1)`;
+        shape.style.left = Math.random() * 100 + '%';
+        shape.style.top = Math.random() * 100 + '%';
+        shapesContainer.appendChild(shape);
+        
+        gsap.to(shape, { opacity: 0.5, duration: 1, delay: Math.random() * 2 });
+        gsap.to(shape, {
+          x: 'random(-100, 100)',
+          y: 'random(-100, 100)',
+          rotation: 'random(-180, 180)',
+          duration: Math.random() * 20 + 20,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut'
+        });
+      }
+      
+      // Animate brand name characters
+      const brandName = document.getElementById('brandName');
+      const text = brandName.textContent;
+      brandName.innerHTML = '';
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        brandName.appendChild(span);
+      });
+      
+      // Master timeline
+      const tl = gsap.timeline();
+      
+      tl.from('.header', { y: -60, opacity: 0, duration: 0.7, ease: 'power3.out' })
+        .from('.brand-logo-container', { scale: 0, rotation: -180, duration: 0.8, ease: 'back.out(1.7)' })
+        .from('.brand-logo-ring', { scale: 0, opacity: 0, duration: 0.5 }, '-=0.4')
+        .from('.verified-badge', { scale: 0, duration: 0.4, ease: 'back.out(2)' }, '-=0.2')
+        .to('.brand-name .char', {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          stagger: 0.04,
+          duration: 0.5,
+          ease: 'power3.out'
+        }, '-=0.2')
+        .from('.brand-tagline', { y: 20, opacity: 0, duration: 0.5 }, '-=0.3')
+        .to('.brand-tag', {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.4,
+          ease: 'power3.out'
+        }, '-=0.2')
+        .to('.profile-card', {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 0.6,
+          ease: 'power3.out'
+        }, '-=0.3');
+      
+      // Color swatches animation
+      gsap.to('.color-swatch', {
+        opacity: 1,
+        scale: 1,
+        stagger: { amount: 0.4, from: 'random' },
+        duration: 0.5,
+        ease: 'back.out(2)',
+        delay: 1.2
+      });
+      
+      // Typography samples
+      gsap.to('.type-sample', {
+        opacity: 1,
+        x: 0,
+        stagger: 0.15,
+        duration: 0.5,
+        delay: 1.4
+      });
+      
+      // Voice traits
+      gsap.to('.voice-trait', {
+        opacity: 1,
+        y: 0,
+        stagger: { amount: 0.3, from: 'random' },
+        duration: 0.4,
+        delay: 1.5
+      });
+      
+      // Tone bars
+      gsap.to('.tone-item', {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.5,
+        delay: 1.6,
+        onComplete: () => {
+          document.querySelectorAll('.tone-bar').forEach(bar => {
+            gsap.to(bar, { width: bar.dataset.width + '%', duration: 1, ease: 'power2.out' });
+          });
+        }
+      });
+      
+      // Color swatch hover effects
+      document.querySelectorAll('.color-swatch').forEach(swatch => {
+        swatch.addEventListener('mouseenter', () => {
+          gsap.to(swatch, { scale: 1.2, rotation: 10, duration: 0.3, ease: 'back.out(2)' });
+        });
+        swatch.addEventListener('mouseleave', () => {
+          gsap.to(swatch, { scale: 1, rotation: 0, duration: 0.3 });
+        });
+      });
+    });
+    </script>
+</body>
+
+</html>
